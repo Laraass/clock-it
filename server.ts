@@ -2,7 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import reportsRouter from "./routes/reports";
+import reportsRouter from "./src/routes/reports";
+import { METHODS } from "http";
 
 dotenv.config();
 
@@ -10,7 +11,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors(
+    {
+        origin: "http://localhost:3001",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    }
+));
 app.use(express.json());
 
 // Routes

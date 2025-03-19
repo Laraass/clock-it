@@ -54,8 +54,15 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
             res.status(400).json({ message: "Invalid password" });
         }
 
+        // Generate JWT token
         const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
-        res.status(200).json({ message: "Logged in!" });
+
+        res.status(200).json({
+            message: "Logged in!",
+            token: token,
+            userId: user._id,
+        });
+
     } catch (error) {
         res.status(500).json({ error: (error as Error).message });
     }

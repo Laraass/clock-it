@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import reportsRouter from "./src/routes/reports";
+import reportsRoutes from "./src/routes/reports";
 import usersRouter from "./src/routes/users";
 import { METHODS } from "http";
 
@@ -21,7 +21,7 @@ app.use(cors(
 app.use(express.json());
 
 // Routes
-app.use("/api/reports", reportsRouter);
+app.use("/api/reports", reportsRoutes);
 app.use("/api/users", usersRouter);
 
 app.get("/", (req, res) => {

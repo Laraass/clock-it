@@ -18,7 +18,7 @@ export const getReportById = async (req: Request, res: Response): Promise<void> 
     try {
         const report = await TimeReport.findById(req.params.id);
         if (!report) {
-            res.status(404).json({ message: "Report not found" });
+            res.status(404).json({ message: "Time report does not exist" });
             return;
         }
         res.json(report);
@@ -49,7 +49,7 @@ export const updateReport = async (req: Request, res: Response): Promise<void> =
             { new: true }
         );
         if (!updatedReport) {
-            res.status(404).json({ message: "Not found" });
+            res.status(404).json({ message: "Time report does not exist" });
             return;
         }
         res.json(updatedReport);
@@ -64,10 +64,10 @@ export const deleteReport = async (req: Request, res: Response): Promise<void> =
     try {
         const deletedReport = await TimeReport.findByIdAndDelete(req.params.id);
         if (!deletedReport) {
-            res.status(404).json({ message: "Not found" });
+            res.status(404).json({ message: "Time report does not exist" });
             return;
         }
-        res.json({ message: "Report deleted" });
+        res.json({ message: "Time report deleted" });
     } catch (error) {
         res.status(500).json({ error: error });
     }

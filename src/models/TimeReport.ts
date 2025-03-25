@@ -6,6 +6,6 @@ const timeReportSchema = new mongoose.Schema({
     hoursWorked: { type: Number, required: true },
     project: { type: String, required: true },
     description: { type: String, required: true }
-}, {timestamps: true});
+}, {timestamps: true, versionKey: false});
 
 export const TimeReport = mongoose.model("TimeReport", timeReportSchema);

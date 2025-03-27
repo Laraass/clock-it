@@ -31,7 +31,11 @@ export const getReportById = async (req: Request, res: Response): Promise<void> 
 // POST - Create report
 export const createReport = async (req: Request, res: Response): Promise<void> => {
     try {
-        const newReport = new TimeReport(req.body);
+        const newReport = new TimeReport({
+            ...req.body,
+            userId: req.user,
+        });
+
         await newReport.save();
         res.status(201).json(newReport);
     } catch (error) {

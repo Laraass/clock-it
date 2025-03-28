@@ -2,6 +2,16 @@
 
 Clock IT is a REST API for time tracking. Users can create, read, update, and delete time reports. The API is built using Node.js, Express, MongoDB, and TypeScript. Authentication is implemented with JWT.
 
+**Table of Contents**:
+
+1. [Object Modeling](#object-modeling)
+2. [Resource URIs](#resource-uris)
+3. [Resource Representations](#resource-representations)
+4. [Endpoints with cURL examples](#endpoints-with-curl-examples)
+5. [Error Handling](#error-handling)
+6. [Assign HTTP Methods](#assign-http-methods)
+7. [Deployment](#deployment)
+
 ## Object modeling
 
 ### Time reports
@@ -33,27 +43,6 @@ A middleware function is used to protect routes and ensure that only authenticat
 | **POST**        | `/api/users/register` | Register account             |
 | **POST**        | `/api/users/login`    | Log in and receive JWT token |
 
-### Example
-- **POST** `/api/auth/register` - Register account
-
-**Request:**
-```json
-curl -X POST http://localhost:3000/api/users/register \
--H "Content-Type: application/json" \
--d '{
-      "name":"Jane Doe",
-      "email":"jane@example.com",
-      "password":"password123"
-    }'
-```
-
-**Response:**
-```json
-{
-  "message": "User registered!"
-}
-```
-
 ### Time reports
 
 | HTTP-method     | Endpoint             | Function                     |
@@ -64,16 +53,56 @@ curl -X POST http://localhost:3000/api/users/register \
 | **PUT**         | `/api/reports/:id`   | Update time report           |
 | **DELETE**      | `/api/reports/:id`   | Delete time report           |
 
-### Example
-- **GET** `/api/reports/` - Fetch all time reports
+## Resource Representations
+
+### User
+
+```json
+{
+  "id": "123456",
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+### Time report
+
+```json
+{
+  "id": "650ff8c2e4b0a1234c567890",
+  "userId": "123456",
+  "date": "2025-03-06",
+  "hoursWorked": 8,
+  "project": "IMDB-clone",
+  "description": "Fixed list-cover component"
+}
+```
+
+## Assign HTTP methods
+
+| HTTP-method | Endpoint            | Function                |
+|-------------|---------------------|-------------------------|
+| **POST**    | /api/users/register | Register account        |
+| **POST**    | /api/users/login    | Log in and recieve JWT  |
+| **GET**     | /api/reports        | Fetch all reports       |
+| **GET**     | /api/reports/:id    | Fetch a specific report |
+| **POST**    | /api/reports        | Create report           |
+| **PUT**     | /api/reports/:id    | Update report           |
+| **DELETE**  | /api/reports/:id    | Delete report           |
+
+## Endpoints with cURL examples
+
+### GET `/api/reports` - Fetch all time reports
 
 **Request:**
-```json
+
+```sh
 curl -X GET http://localhost:3000/api/reports \
 -H "Authorization: secret_key"
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -99,12 +128,33 @@ curl -X GET http://localhost:3000/api/reports \
 ]
 ```
 
-### Example
-- **POST** `/api/reports` - Create time report
+### POST `/api/users/register` - Register account
 
 **Request:**
 
+```sh
+curl -X POST http://localhost:3000/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+      "name":"Jane Doe",
+      "email":"jane@example.com",
+      "password":"password123"
+    }'
+```
+
+**Response:**
+
 ```json
+{
+  "message": "User registered!"
+}
+```
+
+### POST `/api/reports` - Create time report
+
+**Request:**
+
+```sh
 curl -X POST http://localhost:3000/api/reports \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer_token" \
@@ -130,12 +180,11 @@ curl -X POST http://localhost:3000/api/reports \
 }
 ```
 
-### Example
-
-- **PUT** `/api/reports/:id` - Update time report
+### PUT `/api/reports/:id` - Update time report
 
 **Request:**
-```json
+
+```sh
 curl -X PUT "http://localhost:3000/api/reports/67e5bccee63c5ec34903eb72" \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer_token" \
@@ -147,6 +196,7 @@ curl -X PUT "http://localhost:3000/api/reports/67e5bccee63c5ec34903eb72" \
 ```
 
 **Response:**
+
 ```json
 {
   "_id":"67e5bccee63c5ec34903eb72",
@@ -160,97 +210,39 @@ curl -X PUT "http://localhost:3000/api/reports/67e5bccee63c5ec34903eb72" \
 }
 ```
 
-### Example
-
-- **DELETE** `/api/reports/:id` - Delete time report
+### DELETE `/api/reports/:id` - Delete time report
 
 **Request:**
-```json
+
+```sh
 curl -X DELETE "http://localhost:3000/api/reports/67e5bccee63c5ec34903eb72" \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer_token"
 ```
 
 **Response:**
+
 ```json
 {
   "message":"Time report deleted"
 }
 ```
 
-## Resource Representations
+## Error handling
 
-### GET `/api/reports`
-
-#### Response example
-
-```json
-[ {
-    "id": "650ff8c2e4b0a1234c567890",
-    "userId": "123456",
-    "date": "2025-03-06",
-    "hoursWorked": 8,
-    "project": "IMDB-clone",
-    "description": "Fixed list-cover component" },
-
-{
-    "id": "650ff8c2e4b0a1234c567891",
-    "userId": "123456",
-    "date": "2025-03-05",
-    "hoursWorked": 6,
-    "project": "Admin Dashboard",
-    "description": "Implemented search function"
-} ]
-```
-
-### POST `/api/reports`
-
-#### Request example
-
-```json
-{
-    "date": "2025-03-06",
-    "hoursWorked": 8,
-    "project": "IMDB-clone",
-    "description": "Fixed list-cover component"
-}
-```
-
-#### Response example
-
-```json
-{
-  "message": "Report created successfully",
-  "report": {
-    "id": "650ff8c2e4b0a1234c567890",
-    "userId": "123456",
-    "date": "2025-03-06",
-    "hoursWorked": 8,
-    "project": "IMDB-clone",
-    "description": "Fixed list-cover component"
-  }
-}
-```
-
-## Assign HTTP methods
-
-| HTTP-method | Endpoint           | Function                |
-|-------------|--------------------|-------------------------|
-| **POST**    | /api/auth/register | Register user           |
-| **POST**    | /api/auth/login    | Log in and recieve JWT  |
-| **GET**     | /api/reports       | Fetch all reports       |
-| **GET**     | /api/reports/:id   | Fetch a specific report |
-| **POST**    | /api/reports       | Create report           |
-| **PUT**     | /api/reports/:id   | Update report           |
-| **DELETE**  | /api/reports/:id   | Delete report           |
-
+| Status Code | Cause                                   |
+|-------------|-----------------------------------------|
+| 400         | Required fields missing                 |
+| 404         | Trying to access something non-existent |
+| 500         | Server error                            |
 
 ## Deployment
 
 If you want to test the API locally, write the two commands in the terminal:
 
-```json
+```bash
 npm install
 npm run dev
 ```
+
 Make sure to set up environment variables and use a secure database connection for production.

@@ -246,6 +246,6 @@ If you want to test the API locally, follow these steps:
 
 1. Clone the repository.
 2. Install dependencies: ``npm install``
-3. R
+3. Run the project: ``npm run dev``
 
-Make sure to set up environment variables and use a secure database connection for production.
+For production, make sure to set up environment variables and use a secure database connection.

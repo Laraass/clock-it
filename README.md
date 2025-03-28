@@ -2,6 +2,10 @@
 
 Clock IT is a REST API for time tracking. Users can create, read, update, and delete time reports. The API is built using Node.js, Express, MongoDB, and TypeScript. Authentication is implemented with JWT.
 
+**Visit the deployed page**:
+
+- [Clock IT](https://clock-it-pd7b.onrender.com/)
+
 **Table of Contents**:
 
 1. [Object Modeling](#object-modeling)
@@ -238,11 +242,10 @@ curl -X DELETE "http://localhost:3000/api/reports/67e5bccee63c5ec34903eb72" \
 
 ## Deployment
 
-If you want to test the API locally, write the two commands in the terminal:
+If you want to test the API locally, follow these steps:
 
-```bash
-npm install
-npm run dev
-```
+1. Clone the repository.
+2. Install dependencies: ``npm install``
+3. R
 
 Make sure to set up environment variables and use a secure database connection for production.

@@ -1,6 +1,6 @@
 # Clock IT
 
-Clock IT is a REST API for time tracking. Users can create, read, update, and delete time reports. The API is built using Node.js, Express, MongoDB, and TypeScript. Authentication is implemented with JWT.
+Clock IT is a REST API for time reporting. Users can create, read, update, and delete time reports. The API is built using Node.js, Express, MongoDB, and TypeScript. Authentication is implemented with JWT.
 
 **Visit the deployed page**:
 

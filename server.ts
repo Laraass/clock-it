@@ -12,12 +12,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors(
-    {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST", "PUT", "DELETE"],
-    }
-));
+app.use(
+  cors({
+    origin: ["http://localhost:5174", "https://clock-it-app.netlify.app/"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 app.use(express.json());
 
 // Routes
@@ -25,14 +25,14 @@ app.use("/api/reports", reportsRoutes);
 app.use("/api/users", usersRouter);
 
 app.get("/", (req, res) => {
-    res.send("ClockIT is running!");
+  res.send("ClockIT is running!");
 });
 
 // Connect to MongoDB
 mongoose
-    .connect(process.env.MONGO_URI as string)
-    .then(() => {
-        console.log("Connected to MongoDB");
-        app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-    })
-    .catch((error) => console.error("MongoDB connection error:", error));
+  .connect(process.env.MONGO_URI as string)
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+  })
+  .catch((error) => console.error("MongoDB connection error:", error));

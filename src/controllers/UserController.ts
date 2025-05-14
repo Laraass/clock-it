@@ -68,6 +68,11 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
+// Log out
+    export const logoutUser = async (req: Request, res: Response): Promise<void> => {
+    res.status(200).json({ message: "User logged out" });
+};
+
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 

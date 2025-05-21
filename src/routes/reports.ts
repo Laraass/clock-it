@@ -10,13 +10,11 @@ import { authMiddleware } from "../middleware/auth";
 
 const router = express.Router();
 
-// CRUD functions
-router.get("/", getAllReports);
-router.get("/:id", getReportById);
-
-// Middleware for CRUD functions
+// Protect routes with authMiddleware
+router.get("/", authMiddleware, getAllReports);
+router.get("/:id", authMiddleware, getReportById);
 router.post("/", authMiddleware, createReport);
 router.put("/:id", authMiddleware, updateReport);
-router.delete("/:id", authMiddleware, deleteReport); 
+router.delete("/:id", authMiddleware, deleteReport);
 
 export default router;

@@ -38,7 +38,7 @@ export const createReport = async (req: Request, res: Response): Promise<void> =
 
         const newReport = new TimeReport({
             ...req.body,
-            user: req.user.id,
+            userId: req.user.id,
         });
 
         await newReport.save();

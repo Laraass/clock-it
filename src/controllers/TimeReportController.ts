@@ -31,9 +31,14 @@ export const getReportById = async (req: Request, res: Response): Promise<void> 
 // POST - Create report
 export const createReport = async (req: Request, res: Response): Promise<void> => {
     try {
+        if (!req.user) {
+            res.status(401).json({ message: "No user found in token." });
+            return;
+        }
+
         const newReport = new TimeReport({
             ...req.body,
-            userId: req.user,
+            user: req.user.id,
         });
 
         await newReport.save();
@@ -42,6 +47,7 @@ export const createReport = async (req: Request, res: Response): Promise<void> =
         res.status(400).json({ error: error });
     }
 };
+
 
 
 // PUT - Update report
